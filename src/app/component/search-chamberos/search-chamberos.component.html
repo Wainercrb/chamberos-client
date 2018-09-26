@@ -1,0 +1,120 @@
+<div id="main-container" class="container-fluid w-100 p-3">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="entry-header">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <select id="sltProfession" class="btn btn-secondary">
+                    <option [value]="null">Seleccione la profesión</option>
+                    <option *ngFor="let profession of professions" [value]="profession._id"> {{profession.description}}</option>
+                  </select>
+                </span>
+                <span class="input-group-btn">
+                  <select id="sltRadius" class="btn btn-secondary">
+                    <option [value]="0.5">Seleccione la distancia</option>
+                    <option value="1">1 km</option>
+                    <option value="2">2 km</option>
+                    <option value="5">5 km</option>
+                    <option value="10">10 km</option>
+                    <option value="15">15 km</option>
+                    <option value="20">20 km</option>
+                    <option value="30">30 km</option>
+                    <option value="40">40 km</option>
+                    <option value="50">50 km</option>
+                  </select>
+                </span>
+                <span class="input-group-btn">
+                    <button (click)="search()" class="btn btn-primary">Buscar</button>
+                  </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="entry-footer">
+          <div *ngIf="lat && lng">
+            <agm-map [latitude]="lat" [longitude]="lng"  [zoom]="10">
+              <agm-marker [latitude]="lat" [longitude]="lng">
+                <agm-info-window>
+                  <h3><strong>Usuario</strong></h3>
+                  <p>Esoy aquiii!</p>
+                </agm-info-window>
+              </agm-marker>
+              <agm-marker *ngFor="let user of users; let i = index" [latitude]="user.user.latitud" [longitude]="user.user.longitud"
+                #idid [iconUrl]="'../../../assets/imhere.png'" id="marker1">
+                <agm-info-window>
+                  <h3><strong>{{user.user.name}} {{user.user.surnames}}</strong></h3>
+                  <p>Hey puedes contactarme, estoy a tan solo {{user.km}} km, de donde tu estas</p>
+                  <button class="btn btn-primary" (click)="getUserById(user.user._id)">Ver perfi</button>
+                </agm-info-window>
+              </agm-marker>
+              <agm-circle [latitude]="lat" [longitude]="lng" [radius]="radius" [fillColor]="'red'" [circleDraggable]="false"
+                [editable]="false">
+              </agm-circle>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" id="profile-container">
+        <div class="container-fluid">
+          <div class="col-md-12">
+              <h4 id="filtro">Busqueda:</h4>
+          </div>
+          <div class="col-md-12 add_to_cart_block">
+              <div class="card bg-light mb-3">
+                  <div class="card-body">
+                      <p class="price">Detalles del Perfil</p>                     
+                      <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <h6 id="fullname">Name</h6>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <h6 id="email">Email</h6>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <h6 id="phone">Teléfono</h6>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <h6 id="gender">Genero</h6>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <h6 id="birthdate">Fecha Nacimiento</h6>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          
+                      
+                    
+                      <div class="reviews_product p-3 mb-2 ">
+                          3 reviews
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          (4/5)
+                          <a class="pull-right" href="#reviews">View all reviews</a>
+                      </div>
+                      
+                      <button class="btn btn-success btn-block">Contactarme</button>
+                  </div>
+              </div>
+          </div>
+      </div>  
+ 
+      </div>
+    </div>
+  </div>
+  
